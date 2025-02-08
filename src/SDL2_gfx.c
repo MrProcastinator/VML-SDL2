@@ -28,12 +28,151 @@
 #include <mono/metadata/appdomain.h>
 #include <mono/mini/jit.h>
 
+#include <VML/VMLTools.h>
+
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL2_imageFilter.h>
 #include <SDL2/SDL2_rotozoom.h>
 #include <SDL2/SDL2_framerate.h>
 
 extern void** mono_aot_module_SDL2_gfx_info;
+
+/* Array marshal functions */
+
+int SDL_imageFilterAdd_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterAdd(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterMean_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterMean(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterSub_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterSub(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterAbsDiff_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterAbsDiff(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterMult_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterMult(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterMultNor_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterMultNor(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterMultDivby2_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterMultDivby2(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterMultDivby4_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterMultDivby4(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterBitAnd_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterBitAnd(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterBitOr_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterBitOr(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterDiv_wrapped(const unsigned char *Src1, const unsigned char *Src2, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterDiv(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Src2), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterBitNegation_wrapped(const unsigned char *Src1, unsigned char *Dest, int length)
+{
+    return SDL_imageFilterBitNegation(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length);
+}
+
+int SDL_imageFilterAddByte_wrapped(unsigned char *Src1, unsigned char *Dest, unsigned int length, unsigned char C)
+{
+    return SDL_imageFilterAddByte(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, C);
+}
+
+int SDL_imageFilterAddUint_wrapped(unsigned char *Src1, unsigned char *Dest, unsigned int length, unsigned int C)
+{
+    return SDL_imageFilterAddUint(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, C);
+}
+
+int SDL_imageFilterAddByteToHalf_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned char C)
+{
+    return SDL_imageFilterAddByteToHalf(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, C);
+}
+
+int SDL_imageFilterSubByte_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned char C)
+{
+    return SDL_imageFilterSubByte(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, C);
+}
+
+int SDL_imageFilterSubUint_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned int C)
+{
+    return SDL_imageFilterSubUint(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, C);
+}
+
+int SDL_imageFilterShiftRight_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned char N)
+{
+    return SDL_imageFilterShiftRight(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, N);
+}
+
+int SDL_imageFilterShiftRightUint_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned int N)
+{
+    return SDL_imageFilterShiftRightUint(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, N);
+}
+
+int SDL_imageFilterMultByByte_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned char N)
+{
+    return SDL_imageFilterMultByByte(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, N);
+}
+
+int SDL_imageFilterShiftRightAndMultByByte_wrapped(unsigned char *Src1, unsigned char *Dest, unsigned int length, unsigned char N, unsigned char C)
+{
+    return SDL_imageFilterShiftRightAndMultByByte(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, N, C);
+}
+
+int SDL_imageFilterShiftLeftByte_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned char N)
+{
+    return SDL_imageFilterShiftLeftByte(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, N);
+}
+
+int SDL_imageFilterShiftLeftUint_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned int N)
+{
+    return SDL_imageFilterShiftLeftUint(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, N);
+}
+
+int SDL_imageFilterShiftLeft_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, unsigned char N)
+{
+    return SDL_imageFilterShiftLeft(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, N);
+}
+
+int SDL_imageFilterBinarizeUsingThreshold_wrapped(const unsigned char *Src1, unsigned char *Dest, unsigned char threshold, int length)
+{
+    return SDL_imageFilterBinarizeUsingThreshold(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), threshold, length);
+}
+
+int SDL_imageFilterClipToRange_wrapped(const unsigned char *Src1, unsigned char *Dest, unsigned char min_val, unsigned char max_val, int length)
+{
+    return SDL_imageFilterClipToRange(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), min_val, max_val, length);
+}
+
+int SDL_imageFilterNormalizeLinear_wrapped(const unsigned char *Src1, unsigned char *Dest, int length, int low_bound, int high_bound, int min_val, int max_val)
+{
+    return SDL_imageFilterNormalizeLinear(VML_MARSHAL_ARRAY(unsigned char, Src1), VML_MARSHAL_ARRAY(unsigned char, Dest), length, low_bound, high_bound, min_val, max_val);
+}
 
 void VMLSDL2GfxRegister()
 {
@@ -114,31 +253,31 @@ void VMLSDL2GfxRegister()
 	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMMXdetect", SDL_imageFilterMMXdetect);
 	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMMXoff", SDL_imageFilterMMXoff);
 	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMMXon", SDL_imageFilterMMXon);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAdd", SDL_imageFilterAdd);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMean", SDL_imageFilterMean);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterSub", SDL_imageFilterSub);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAbsDiff", SDL_imageFilterAbsDiff);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMult", SDL_imageFilterMult);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultNor", SDL_imageFilterMultNor);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultDivby2", SDL_imageFilterMultDivby2);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultDivby4", SDL_imageFilterMultDivby4);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBitAnd", SDL_imageFilterBitAnd);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBitOr", SDL_imageFilterBitOr);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterDiv", SDL_imageFilterDiv);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBitNegation", SDL_imageFilterBitNegation);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAddByte", SDL_imageFilterAddByte);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAddUint", SDL_imageFilterAddUint);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAddByteToHalf", SDL_imageFilterAddByteToHalf);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterSubByte", SDL_imageFilterSubByte);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterSubUint", SDL_imageFilterSubUint);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftRight", SDL_imageFilterShiftRight);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftRightUint", SDL_imageFilterShiftRightUint);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultByByte", SDL_imageFilterMultByByte);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftRightAndMultByByte", SDL_imageFilterShiftRightAndMultByByte);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftLeftByte", SDL_imageFilterShiftLeftByte);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftLeftUint", SDL_imageFilterShiftLeftUint);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftLeft", SDL_imageFilterShiftLeft);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBinarizeUsingThreshold", SDL_imageFilterBinarizeUsingThreshold);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterClipToRange", SDL_imageFilterClipToRange);
-	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterNormalizeLinear", SDL_imageFilterNormalizeLinear);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAdd", SDL_imageFilterAdd_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMean", SDL_imageFilterMean_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterSub", SDL_imageFilterSub_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAbsDiff", SDL_imageFilterAbsDiff_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMult", SDL_imageFilterMult_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultNor", SDL_imageFilterMultNor_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultDivby2", SDL_imageFilterMultDivby2_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultDivby4", SDL_imageFilterMultDivby4_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBitAnd", SDL_imageFilterBitAnd_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBitOr", SDL_imageFilterBitOr_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterDiv", SDL_imageFilterDiv_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBitNegation", SDL_imageFilterBitNegation_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAddByte", SDL_imageFilterAddByte_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAddUint", SDL_imageFilterAddUint_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterAddByteToHalf", SDL_imageFilterAddByteToHalf_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterSubByte", SDL_imageFilterSubByte_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterSubUint", SDL_imageFilterSubUint_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftRight", SDL_imageFilterShiftRight_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftRightUint", SDL_imageFilterShiftRightUint_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterMultByByte", SDL_imageFilterMultByByte_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftRightAndMultByByte", SDL_imageFilterShiftRightAndMultByByte_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftLeftByte", SDL_imageFilterShiftLeftByte_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftLeftUint", SDL_imageFilterShiftLeftUint_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterShiftLeft", SDL_imageFilterShiftLeft_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterBinarizeUsingThreshold", SDL_imageFilterBinarizeUsingThreshold_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterClipToRange", SDL_imageFilterClipToRange_wrapped);
+	mono_add_internal_call("SDL2.SDL_gfx::SDL_imageFilterNormalizeLinear", SDL_imageFilterNormalizeLinear_wrapped);
 }

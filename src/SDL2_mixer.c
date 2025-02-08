@@ -28,9 +28,23 @@
 #include <mono/metadata/appdomain.h>
 #include <mono/mini/jit.h>
 
+#include <VML/VMLTools.h>
+
 #include <SDL2/SDL_mixer.h>
 
 extern void** mono_aot_module_SDL2_mixer_info;
+
+/* Array marshal functions */
+
+Mix_Chunk* Mix_QuickLoad_WAV_wrapped(Uint8 *mem)
+{
+    return Mix_QuickLoad_WAV(VML_MARSHAL_ARRAY(Uint8, mem));
+}
+
+Mix_Chunk* Mix_QuickLoad_RAW_wrapped(Uint8 *mem, Uint32 len)
+{
+    return Mix_QuickLoad_RAW(VML_MARSHAL_ARRAY(Uint8, mem), len);
+}
 
 void VMLSDL2MixerRegister()
 {
@@ -44,8 +58,8 @@ void VMLSDL2MixerRegister()
 	mono_add_internal_call("SDL2.SDL_mixer::Mix_QuerySpec", Mix_QuerySpec);
 	mono_add_internal_call("SDL2.SDL_mixer::Mix_LoadWAV_RW", Mix_LoadWAV_RW);
 	mono_add_internal_call("SDL2.SDL_mixer::INTERNAL_Mix_LoadMUS", Mix_LoadMUS);
-	mono_add_internal_call("SDL2.SDL_mixer::Mix_QuickLoad_WAV", Mix_QuickLoad_WAV);
-	mono_add_internal_call("SDL2.SDL_mixer::Mix_QuickLoad_RAW", Mix_QuickLoad_RAW);
+	mono_add_internal_call("SDL2.SDL_mixer::Mix_QuickLoad_WAV", Mix_QuickLoad_WAV_wrapped);
+	mono_add_internal_call("SDL2.SDL_mixer::Mix_QuickLoad_RAW", Mix_QuickLoad_RAW_wrapped);
 	mono_add_internal_call("SDL2.SDL_mixer::Mix_FreeChunk", Mix_FreeChunk);
 	mono_add_internal_call("SDL2.SDL_mixer::Mix_FreeMusic", Mix_FreeMusic);
 	mono_add_internal_call("SDL2.SDL_mixer::Mix_GetNumChunkDecoders", Mix_GetNumChunkDecoders);

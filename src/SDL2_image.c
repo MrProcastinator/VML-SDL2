@@ -28,9 +28,18 @@
 #include <mono/metadata/appdomain.h>
 #include <mono/mini/jit.h>
 
+#include <VML/VMLTools.h>
+
 #include <SDL2/SDL_image.h>
 
 extern void** mono_aot_module_SDL2_image_info;
+
+/* Array marshal functions */
+
+SDL_Surface* IMG_ReadXPMFromArray_wrapped(char **xpm)
+{
+    return IMG_ReadXPMFromArray(VML_MARSHAL_ARRAY(char*, xpm));
+}
 
 void VMLSDL2ImageRegister()
 {
@@ -45,7 +54,7 @@ void VMLSDL2ImageRegister()
 	mono_add_internal_call("SDL2.SDL_image::INTERNAL_IMG_LoadTexture", IMG_LoadTexture);
 	mono_add_internal_call("SDL2.SDL_image::IMG_LoadTexture_RW", IMG_LoadTexture_RW);
 	mono_add_internal_call("SDL2.SDL_image::INTERNAL_IMG_LoadTextureTyped_RW", IMG_LoadTextureTyped_RW);
-	mono_add_internal_call("SDL2.SDL_image::IMG_ReadXPMFromArray", IMG_ReadXPMFromArray);
+	mono_add_internal_call("SDL2.SDL_image::IMG_ReadXPMFromArray", IMG_ReadXPMFromArray_wrapped);
 	mono_add_internal_call("SDL2.SDL_image::INTERNAL_IMG_SavePNG", IMG_SavePNG);
 	mono_add_internal_call("SDL2.SDL_image::IMG_SavePNG_RW", IMG_SavePNG_RW);
 	mono_add_internal_call("SDL2.SDL_image::INTERNAL_IMG_SaveJPG", IMG_SaveJPG);

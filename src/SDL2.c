@@ -28,9 +28,129 @@
 #include <mono/metadata/appdomain.h>
 #include <mono/mini/jit.h>
 
+#include <VML/VMLTools.h>
+
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_stdinc.h>
 
 extern void** mono_aot_module_SDL2_info;
+
+/* Array marshal functions */
+
+int SDL_GetWindowGammaRamp_wrapped(SDL_Window *window, Uint16 *red, Uint16 *green, Uint16 *blue)
+{
+    return SDL_GetWindowGammaRamp(window, VML_MARSHAL_ARRAY(Uint16, red), VML_MARSHAL_ARRAY(Uint16, green), VML_MARSHAL_ARRAY(Uint16, blue));
+}
+
+int SDL_SetWindowGammaRamp_wrapped(SDL_Window *window, const Uint16 *red, const Uint16 *green, const Uint16 *blue)
+{
+    return SDL_SetWindowGammaRamp(window, VML_MARSHAL_ARRAY(Uint16, red), VML_MARSHAL_ARRAY(Uint16, green), VML_MARSHAL_ARRAY(Uint16, blue));
+}
+
+int SDL_UpdateWindowSurfaceRects_wrapped(SDL_Window *window, const SDL_Rect *rects, int numrects)
+{
+    return SDL_UpdateWindowSurfaceRects(window, VML_MARSHAL_ARRAY(SDL_Rect, rects), numrects);
+}
+
+int SDL_RenderDrawLines_wrapped(SDL_Renderer *renderer, const SDL_Point *points, int count)
+{
+    return SDL_RenderDrawLines(renderer, VML_MARSHAL_ARRAY(SDL_Point, points), count);
+}
+
+int SDL_RenderDrawPoints_wrapped(SDL_Renderer *renderer, const SDL_Point *points, int count)
+{
+    return SDL_RenderDrawPoints(renderer, VML_MARSHAL_ARRAY(SDL_Point, points), count);
+}
+
+int SDL_RenderDrawRects_wrapped(SDL_Renderer *renderer, const SDL_Rect *rects, int count)
+{
+    return SDL_RenderDrawRects(renderer, VML_MARSHAL_ARRAY(SDL_Rect, rects), count);
+}
+
+int SDL_RenderFillRects_wrapped(SDL_Renderer *renderer, const SDL_Rect *rects, int count)
+{
+    return SDL_RenderFillRects(renderer, VML_MARSHAL_ARRAY(SDL_Rect, rects), count);
+}
+
+int SDL_RenderGeometry_wrapped(SDL_Renderer *renderer, SDL_Texture *texture, const SDL_Vertex *verts, int numverts, const int *indices, int numindices)
+{
+    return SDL_RenderGeometry(renderer, texture, VML_MARSHAL_ARRAY(SDL_Vertex, verts), numverts, VML_MARSHAL_ARRAY(int, indices), numindices);
+}
+
+int SDL_RenderGeometryRaw_wrapped(SDL_Renderer *renderer, SDL_Texture *texture, const float *xy, int xy_stride, const SDL_Color *color, int color_stride, const float *uv, int uv_stride, int numverts, const void *indices, int numindices, int size_indices)
+{
+    return SDL_RenderGeometryRaw(renderer, texture, VML_MARSHAL_ARRAY(float, xy), xy_stride, VML_MARSHAL_ARRAY(SDL_Color, color), color_stride, VML_MARSHAL_ARRAY(float, uv), uv_stride, numverts, VML_MARSHAL_ARRAY(void, indices), numindices, size_indices);
+}
+
+int SDL_RenderDrawPointsF_wrapped(SDL_Renderer *renderer, const SDL_FPoint *points, int count)
+{
+    return SDL_RenderDrawPointsF(renderer, VML_MARSHAL_ARRAY(SDL_FPoint, points), count);
+}
+
+int SDL_RenderDrawLinesF_wrapped(SDL_Renderer *renderer, const SDL_FPoint *points, int count)
+{
+    return SDL_RenderDrawLinesF(renderer, VML_MARSHAL_ARRAY(SDL_FPoint, points), count);
+}
+
+int SDL_RenderDrawRectsF_wrapped(SDL_Renderer *renderer, const SDL_FRect *rects, int count)
+{
+    return SDL_RenderDrawRectsF(renderer, VML_MARSHAL_ARRAY(SDL_FRect, rects), count);
+}
+
+int SDL_RenderFillRectsF_wrapped(SDL_Renderer *renderer, const SDL_FRect *rects, int count)
+{
+    return SDL_RenderFillRectsF(renderer, VML_MARSHAL_ARRAY(SDL_FRect, rects), count);
+}
+
+void SDL_CalculateGammaRamp_wrapped(float gamma, Uint16 *ramp)
+{
+    SDL_CalculateGammaRamp(gamma, VML_MARSHAL_ARRAY(Uint16, ramp));
+}
+
+int SDL_SetPaletteColors_wrapped(SDL_Palette *palette, const SDL_Color *colors, int firstcolor, int ncolors)
+{
+    return SDL_SetPaletteColors(palette, VML_MARSHAL_ARRAY(SDL_Color, colors), firstcolor, ncolors);
+}
+
+SDL_bool SDL_EnclosePoints_wrapped(const SDL_Point *points, int count, const SDL_Rect *clip, SDL_Rect *result)
+{
+    return SDL_EnclosePoints(VML_MARSHAL_ARRAY(SDL_Point, points), count, VML_MARSHAL_ARRAY(SDL_Rect, clip), result);
+}
+
+int SDL_FillRects_wrapped(SDL_Surface *dst, const SDL_Rect *rects, int count, Uint32 color)
+{
+    return SDL_FillRects(dst, VML_MARSHAL_ARRAY(SDL_Rect, rects), count, color);
+}
+
+int SDL_PeepEvents_wrapped(SDL_Event *events, int numevents, SDL_eventaction action, Uint32 minType, Uint32 maxType)
+{
+    return SDL_PeepEvents(VML_MARSHAL_ARRAY(SDL_Event, events), numevents, action, minType, maxType);
+}
+
+void SDL_JoystickGetGUIDString_wrapped(SDL_JoystickGUID guid, char *pszGUID, int cbGUID)
+{
+    SDL_JoystickGetGUIDString(guid, VML_MARSHAL_ARRAY(char, pszGUID), cbGUID);
+}
+
+int SDL_GameControllerGetSensorData_wrapped(SDL_GameController *gamecontroller, SDL_SensorType type, float *data, int numValues)
+{
+    return SDL_GameControllerGetSensorData(gamecontroller, type, VML_MARSHAL_ARRAY(float, data), numValues);
+}
+
+int SDL_SensorGetData_wrapped(SDL_Sensor *sensor, float *data, int numValues)
+{
+    return SDL_SensorGetData(sensor, VML_MARSHAL_ARRAY(float, data), numValues);
+}
+
+void SDL_MixAudio_wrapped(Uint8 *dst, const Uint8 *src, Uint32 len, int volume)
+{
+    SDL_MixAudio(VML_MARSHAL_ARRAY(Uint8, dst), VML_MARSHAL_ARRAY(Uint8, src), len, volume);
+}
+
+void SDL_MixAudioFormat_wrapped(Uint8 *dst, const Uint8 *src, SDL_AudioFormat format, Uint32 len, int volume)
+{
+    SDL_MixAudioFormat(VML_MARSHAL_ARRAY(Uint8, dst), VML_MARSHAL_ARRAY(Uint8, src), format, len, volume);
+}
 
 void VMLSDL2Register()
 {
@@ -133,7 +253,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_GetWindowICCProfile", SDL_GetWindowICCProfile);
 	mono_add_internal_call("SDL2.SDL::SDL_GetWindowFlags", SDL_GetWindowFlags);
 	mono_add_internal_call("SDL2.SDL::SDL_GetWindowFromID", SDL_GetWindowFromID);
-	mono_add_internal_call("SDL2.SDL::SDL_GetWindowGammaRamp", SDL_GetWindowGammaRamp);
+	mono_add_internal_call("SDL2.SDL::SDL_GetWindowGammaRamp", SDL_GetWindowGammaRamp_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_GetWindowGrab", SDL_GetWindowGrab);
 	mono_add_internal_call("SDL2.SDL::SDL_GetWindowKeyboardGrab", SDL_GetWindowKeyboardGrab);
 	mono_add_internal_call("SDL2.SDL::SDL_GetWindowMouseGrab", SDL_GetWindowMouseGrab);
@@ -174,7 +294,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_SetWindowDisplayMode", SDL_SetWindowDisplayMode);
 	mono_add_internal_call("SDL2.SDL::SDL_SetWindowDisplayMode", SDL_SetWindowDisplayMode);
 	mono_add_internal_call("SDL2.SDL::SDL_SetWindowFullscreen", SDL_SetWindowFullscreen);
-	mono_add_internal_call("SDL2.SDL::SDL_SetWindowGammaRamp", SDL_SetWindowGammaRamp);
+	mono_add_internal_call("SDL2.SDL::SDL_SetWindowGammaRamp", SDL_SetWindowGammaRamp_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_SetWindowGrab", SDL_SetWindowGrab);
 	mono_add_internal_call("SDL2.SDL::SDL_SetWindowKeyboardGrab", SDL_SetWindowKeyboardGrab);
 	mono_add_internal_call("SDL2.SDL::SDL_SetWindowMouseGrab", SDL_SetWindowMouseGrab);
@@ -190,7 +310,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::INTERNAL_SDL_SetWindowTitle", SDL_SetWindowTitle);
 	mono_add_internal_call("SDL2.SDL::SDL_ShowWindow", SDL_ShowWindow);
 	mono_add_internal_call("SDL2.SDL::SDL_UpdateWindowSurface", SDL_UpdateWindowSurface);
-	mono_add_internal_call("SDL2.SDL::SDL_UpdateWindowSurfaceRects", SDL_UpdateWindowSurfaceRects);
+	mono_add_internal_call("SDL2.SDL::SDL_UpdateWindowSurfaceRects", SDL_UpdateWindowSurfaceRects_wrapped);
 	mono_add_internal_call("SDL2.SDL::INTERNAL_SDL_VideoInit", SDL_VideoInit);
 	mono_add_internal_call("SDL2.SDL::SDL_VideoQuit", SDL_VideoQuit);
 	mono_add_internal_call("SDL2.SDL::SDL_SetWindowHitTest", SDL_SetWindowHitTest);
@@ -243,15 +363,15 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyEx", SDL_RenderCopyEx);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyEx", SDL_RenderCopyEx);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawLine", SDL_RenderDrawLine);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawLines", SDL_RenderDrawLines);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawLines", SDL_RenderDrawLines_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawPoint", SDL_RenderDrawPoint);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawPoints", SDL_RenderDrawPoints);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawPoints", SDL_RenderDrawPoints_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRect", SDL_RenderDrawRect);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRect", SDL_RenderDrawRect);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRects", SDL_RenderDrawRects);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRects", SDL_RenderDrawRects_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRect", SDL_RenderFillRect);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRect", SDL_RenderFillRect);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRects", SDL_RenderFillRects);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRects", SDL_RenderFillRects_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyF", SDL_RenderCopyF);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyF", SDL_RenderCopyF);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyF", SDL_RenderCopyF);
@@ -264,18 +384,18 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyExF", SDL_RenderCopyExF);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyExF", SDL_RenderCopyExF);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderCopyExF", SDL_RenderCopyExF);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderGeometry", SDL_RenderGeometry);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderGeometryRaw", SDL_RenderGeometryRaw);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderGeometry", SDL_RenderGeometry_wrapped);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderGeometryRaw", SDL_RenderGeometryRaw_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawPointF", SDL_RenderDrawPointF);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawPointsF", SDL_RenderDrawPointsF);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawPointsF", SDL_RenderDrawPointsF_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawLineF", SDL_RenderDrawLineF);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawLinesF", SDL_RenderDrawLinesF);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawLinesF", SDL_RenderDrawLinesF_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRectF", SDL_RenderDrawRectF);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRectF", SDL_RenderDrawRectF);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRectsF", SDL_RenderDrawRectsF);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderDrawRectsF", SDL_RenderDrawRectsF_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRectF", SDL_RenderFillRectF);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRectF", SDL_RenderFillRectF);
-	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRectsF", SDL_RenderFillRectsF);
+	mono_add_internal_call("SDL2.SDL::SDL_RenderFillRectsF", SDL_RenderFillRectsF_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderGetClipRect", SDL_RenderGetClipRect);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderGetLogicalSize", SDL_RenderGetLogicalSize);
 	mono_add_internal_call("SDL2.SDL::SDL_RenderGetScale", SDL_RenderGetScale);
@@ -310,7 +430,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_RenderFlush", SDL_RenderFlush);
 	mono_add_internal_call("SDL2.SDL::SDL_AllocFormat", SDL_AllocFormat);
 	mono_add_internal_call("SDL2.SDL::SDL_AllocPalette", SDL_AllocPalette);
-	mono_add_internal_call("SDL2.SDL::SDL_CalculateGammaRamp", SDL_CalculateGammaRamp);
+	mono_add_internal_call("SDL2.SDL::SDL_CalculateGammaRamp", SDL_CalculateGammaRamp_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_FreeFormat", SDL_FreeFormat);
 	mono_add_internal_call("SDL2.SDL::SDL_FreePalette", SDL_FreePalette);
 	mono_add_internal_call("SDL2.SDL::INTERNAL_SDL_GetPixelFormatName", SDL_GetPixelFormatName);
@@ -320,9 +440,9 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_MapRGBA", SDL_MapRGBA);
 	mono_add_internal_call("SDL2.SDL::SDL_MasksToPixelFormatEnum", SDL_MasksToPixelFormatEnum);
 	mono_add_internal_call("SDL2.SDL::SDL_PixelFormatEnumToMasks", SDL_PixelFormatEnumToMasks);
-	mono_add_internal_call("SDL2.SDL::SDL_SetPaletteColors", SDL_SetPaletteColors);
+	mono_add_internal_call("SDL2.SDL::SDL_SetPaletteColors", SDL_SetPaletteColors_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_SetPixelFormatPalette", SDL_SetPixelFormatPalette);
-	mono_add_internal_call("SDL2.SDL::SDL_EnclosePoints", SDL_EnclosePoints);
+	mono_add_internal_call("SDL2.SDL::SDL_EnclosePoints", SDL_EnclosePoints_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_HasIntersection", SDL_HasIntersection);
 	mono_add_internal_call("SDL2.SDL::SDL_IntersectRect", SDL_IntersectRect);
 	mono_add_internal_call("SDL2.SDL::SDL_IntersectRectAndLine", SDL_IntersectRectAndLine);
@@ -349,7 +469,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_CreateRGBSurfaceWithFormatFrom", SDL_CreateRGBSurfaceWithFormatFrom);
 	mono_add_internal_call("SDL2.SDL::SDL_FillRect", SDL_FillRect);
 	mono_add_internal_call("SDL2.SDL::SDL_FillRect", SDL_FillRect);
-	mono_add_internal_call("SDL2.SDL::SDL_FillRects", SDL_FillRects);
+	mono_add_internal_call("SDL2.SDL::SDL_FillRects", SDL_FillRects_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_FreeSurface", SDL_FreeSurface);
 	mono_add_internal_call("SDL2.SDL::SDL_GetClipRect", SDL_GetClipRect);
 	mono_add_internal_call("SDL2.SDL::SDL_HasColorKey", SDL_HasColorKey);
@@ -380,8 +500,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::INTERNAL_SDL_GetClipboardText", SDL_GetClipboardText);
 	mono_add_internal_call("SDL2.SDL::INTERNAL_SDL_SetClipboardText", SDL_SetClipboardText);
 	mono_add_internal_call("SDL2.SDL::SDL_PumpEvents", SDL_PumpEvents);
-	mono_add_internal_call("SDL2.SDL::SDL_PeepEvents", SDL_PeepEvents);
-	mono_add_internal_call("SDL2.SDL::SDL_PeepEvents", SDL_PeepEvents);
+	mono_add_internal_call("SDL2.SDL::SDL_PeepEvents", SDL_PeepEvents_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_HasEvent", SDL_HasEvent);
 	mono_add_internal_call("SDL2.SDL::SDL_HasEvents", SDL_HasEvents);
 	mono_add_internal_call("SDL2.SDL::SDL_FlushEvent", SDL_FlushEvent);
@@ -463,7 +582,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_NumJoysticks", SDL_NumJoysticks);
 	mono_add_internal_call("SDL2.SDL::SDL_JoystickGetDeviceGUID", SDL_JoystickGetDeviceGUID);
 	mono_add_internal_call("SDL2.SDL::SDL_JoystickGetGUID", SDL_JoystickGetGUID);
-	mono_add_internal_call("SDL2.SDL::SDL_JoystickGetGUIDString", SDL_JoystickGetGUIDString);
+	mono_add_internal_call("SDL2.SDL::SDL_JoystickGetGUIDString", SDL_JoystickGetGUIDString_wrapped);
 	mono_add_internal_call("SDL2.SDL::INTERNAL_SDL_JoystickGetGUIDFromString", SDL_JoystickGetGUIDFromString);
 	mono_add_internal_call("SDL2.SDL::SDL_JoystickGetDeviceVendor", SDL_JoystickGetDeviceVendor);
 	mono_add_internal_call("SDL2.SDL::SDL_JoystickGetDeviceProduct", SDL_JoystickGetDeviceProduct);
@@ -543,8 +662,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_GameControllerHasSensor", SDL_GameControllerHasSensor);
 	mono_add_internal_call("SDL2.SDL::SDL_GameControllerSetSensorEnabled", SDL_GameControllerSetSensorEnabled);
 	mono_add_internal_call("SDL2.SDL::SDL_GameControllerIsSensorEnabled", SDL_GameControllerIsSensorEnabled);
-	mono_add_internal_call("SDL2.SDL::SDL_GameControllerGetSensorData", SDL_GameControllerGetSensorData);
-	mono_add_internal_call("SDL2.SDL::SDL_GameControllerGetSensorData", SDL_GameControllerGetSensorData);
+	mono_add_internal_call("SDL2.SDL::SDL_GameControllerGetSensorData", SDL_GameControllerGetSensorData_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_GameControllerGetSensorDataRate", SDL_GameControllerGetSensorDataRate);
 	mono_add_internal_call("SDL2.SDL::SDL_GameControllerSendEffect", SDL_GameControllerSendEffect);
 	mono_add_internal_call("SDL2.SDL::SDL_HapticClose", SDL_HapticClose);
@@ -588,7 +706,7 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_SensorGetType", SDL_SensorGetType);
 	mono_add_internal_call("SDL2.SDL::SDL_SensorGetNonPortableType", SDL_SensorGetNonPortableType);
 	mono_add_internal_call("SDL2.SDL::SDL_SensorGetInstanceID", SDL_SensorGetInstanceID);
-	mono_add_internal_call("SDL2.SDL::SDL_SensorGetData", SDL_SensorGetData);
+	mono_add_internal_call("SDL2.SDL::SDL_SensorGetData", SDL_SensorGetData_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_SensorClose", SDL_SensorClose);
 	mono_add_internal_call("SDL2.SDL::SDL_SensorUpdate", SDL_SensorUpdate);
 	mono_add_internal_call("SDL2.SDL::SDL_LockSensors", SDL_LockSensors);
@@ -608,10 +726,8 @@ void VMLSDL2Register()
 	mono_add_internal_call("SDL2.SDL::SDL_LoadWAV_RW", SDL_LoadWAV_RW);
 	mono_add_internal_call("SDL2.SDL::SDL_LockAudio", SDL_LockAudio);
 	mono_add_internal_call("SDL2.SDL::SDL_LockAudioDevice", SDL_LockAudioDevice);
-	mono_add_internal_call("SDL2.SDL::SDL_MixAudio", SDL_MixAudio);
-	mono_add_internal_call("SDL2.SDL::SDL_MixAudioFormat", SDL_MixAudioFormat);
-	mono_add_internal_call("SDL2.SDL::SDL_MixAudioFormat", SDL_MixAudioFormat);
-	mono_add_internal_call("SDL2.SDL::SDL_OpenAudio", SDL_OpenAudio);
+	mono_add_internal_call("SDL2.SDL::SDL_MixAudio", SDL_MixAudio_wrapped);
+	mono_add_internal_call("SDL2.SDL::SDL_MixAudioFormat", SDL_MixAudioFormat_wrapped);
 	mono_add_internal_call("SDL2.SDL::SDL_OpenAudio", SDL_OpenAudio);
 	mono_add_internal_call("SDL2.SDL::SDL_OpenAudioDevice", SDL_OpenAudioDevice);
 	mono_add_internal_call("SDL2.SDL::INTERNAL_SDL_OpenAudioDevice", SDL_OpenAudioDevice);
