@@ -91,11 +91,12 @@ namespace SDL2
 				return (byte*) 0;
 			}
 
+			var handle = GCHandle.Alloc(str, GCHandleType.Pinned);
+			IntPtr ptr = handle.AddrOfPinnedObject();
 			int bufferSize = Utf8Size(str);
 			byte* buffer = (byte*) Marshal.AllocHGlobal(bufferSize);
-			byte[] utf8Bytes = Encoding.UTF8.GetBytes(str);
-			Marshal.Copy(utf8Bytes, 0, (IntPtr)buffer, bufferSize);
-			buffer[bufferSize] = 0;
+			Encoding.UTF8.GetBytes((char*)ptr, str.Length + 1, buffer, bufferSize);
+			handle.Free();
 			return buffer;
 		}
 
@@ -149,10 +150,10 @@ namespace SDL2
 		/* malloc/free are used by the marshaler! -flibit */
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		internal static extern IntPtr SDL_malloc(IntPtr size);
+		public static extern IntPtr SDL_malloc(IntPtr size);
 
 		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		internal static extern void SDL_free(IntPtr memblock);
+		public static extern void SDL_free(IntPtr memblock);
 
 		/* Buffer.BlockCopy is not available in every runtime yet. Also,
 		 * using memcpy directly can be a compatibility issue in other
