@@ -3,10 +3,16 @@ enable_language(ASM)
 
 project(src)
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "DEBUG")
+  set(MONO_RELEASE_TYPE debug)
+else()
+  set(MONO_RELEASE_TYPE optimize)
+endif()
+
 set(LIBRARY_NAME SDL2)
 compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
-  FLAGS unsafe
+  FLAGS unsafe ${MONO_RELEASE_TYPE}
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -17,7 +23,7 @@ set(LIBRARY_NAME SDL2_ttf)
 compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
-  FLAGS unsafe
+  FLAGS unsafe ${MONO_RELEASE_TYPE}
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -29,7 +35,7 @@ set(LIBRARY_NAME SDL2_mixer)
 compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
-  FLAGS unsafe
+  FLAGS unsafe ${MONO_RELEASE_TYPE}
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -41,7 +47,7 @@ set(LIBRARY_NAME SDL2_image)
 compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
-  FLAGS unsafe
+  FLAGS unsafe ${MONO_RELEASE_TYPE}
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -53,7 +59,7 @@ set(LIBRARY_NAME SDL2_gfx)
 compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
-  FLAGS unsafe
+  FLAGS unsafe ${MONO_RELEASE_TYPE}
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
