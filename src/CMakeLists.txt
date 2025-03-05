@@ -13,6 +13,7 @@ set(LIBRARY_NAME SDL2)
 compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   FLAGS unsafe ${MONO_RELEASE_TYPE}
+  OPTIMIZE
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -24,6 +25,7 @@ compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
   FLAGS unsafe ${MONO_RELEASE_TYPE}
+  OPTIMIZE
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -36,6 +38,7 @@ compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
   FLAGS unsafe ${MONO_RELEASE_TYPE}
+  OPTIMIZE
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -48,6 +51,7 @@ compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
   FLAGS unsafe ${MONO_RELEASE_TYPE}
+  OPTIMIZE
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
@@ -60,6 +64,7 @@ compile_mono_single_assembly_aot(
   CODE_FILE ${LIBRARY_NAME}
   REFERENCES SDL2.dll
   FLAGS unsafe ${MONO_RELEASE_TYPE}
+  OPTIMIZE
 )
 add_library(VML${LIBRARY_NAME} STATIC
   ${LIBRARY_NAME}.c
