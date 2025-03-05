@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-include(VMLBuild)
-
 if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
   if(DEFINED ENV{VITASDK})
     set(CMAKE_TOOLCHAIN_FILE "$ENV{VITASDK}/share/vita.toolchain.cmake" CACHE PATH "toolchain file")
@@ -15,6 +13,7 @@ endif()
 project(VMLSDL2)
 
 include("${VITASDK}/share/vita.cmake" REQUIRED)
+include(VML/VMLBuild)
 
 # Must be provided when running
 set(SFV_FOLDER "" CACHE STRING "Unity Support for Vita installation folder")
